@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Sproutly - Personalized Parenting Advice</title>
+    <style>
+        /* Preload custom fonts */
+        @font-face {
+            font-family: 'Merriweather';
+            font-style: normal;
+            font-weight: 400;
+            src: url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+            font-display: swap;
+        }
+
+        /* Global Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #EAF4F4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 50px;  /* Increased from 40px */
+            max-width: 95%;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Headings and Titles */
+        h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #123C69;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 img {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+        }
+
+        h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 28px;
+            color: #123C69;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Paragraphs and Text */
+        p, ul, ul li {
+            font-size: 20px;  /* Increased from 18px */
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Labels and Input Fields */
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 18px;
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #123C69;
+            outline: none;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        button, .category-button {
+            padding: 16px 30px;
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, .category-button:hover {
+            background-color: #C9E4E9;
+            color: white;
+        }
+
+        .category-button.selected {
+            background-color: #0A2740;  /* Stronger background color */
+            color: white;
+            border: 2px solid #123C69;  /* Added border */
+        }
+
+        #submit-button {
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+            padding: 18px;
+            font-size: 20px;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        #submit-button:hover {
+            background-color: #218838;
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #123C69;  /* Updated spinner color */
+            height: 40px;  /* Increased size */
+            width: 40px;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Response Container */
+        #response-container {
+            display: none;
+            margin-top: 30px;
+            text-align: left;
+            padding: 30px;
+            background-color: #fafafa;
+            border-radius: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #response {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        #sources {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        #sources li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+
+        #sources a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #sources a:hover {
+            text-decoration: underline;
+        }
+
+        #ask-another {
+            display: none;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #ask-another:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            p, ul, ul li {
+                font-size: 16px;
+            }
+
+            button, .category-button {
+                font-size: 16px;
+            }
+
+            #submit-button {
+                font-size: 18px;
+            }
+        }
+
+        /* Mobile-first adjustments */
+        @media (max-width: 768px) {
+            input[type="text"], textarea {
+                padding: 10px;  /* Reduced padding for mobile */
+            }
+
+            #submit-button {
+                position: fixed;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;  /* Ensure button stays visible */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><img src="https://img.icons8.com/emoji/48/000000/seedling.png" alt="Seedling Icon">Sproutly</h1>
+        <p>
+            Sproutly is your friendly, go-to tool for answering parenting questions with personalised advice. We know there are countless websites and forums, which can make it overwhelming to find the right answers quickly. That’s where Sproutly comes in! It’s trained on trusted parenting and health sources to give you clear, reliable advice - fast.
+
+            Whether you're a new or seasoned parent, Sproutly is here to help. You can ask any parenting question, and the more details you provide, the more personalised and helpful the advice will be. 
+        </p>
+        <ul>
+            <li>Why won’t my baby sleep through the night?</li>
+            <li>How can I start introducing solid foods to my baby?</li>
+            <li>How do I claim child benefits in the UK?</li>
+            <li>How to travel safely with a 3 month old?</li>
+        </ul>
+
+        <form id="questionForm">
+            <label for="question">Your Question:</label>
+            <input type="text" id="question" name="question" placeholder="Enter your question" required>
+
+            <label for="category">Category:</label>
+            <div id="category-buttons">
+                <button type="button" class="category-button" onclick="selectCategory('Health & Wellbeing')"><i class="fas fa-heartbeat"></i> Health & Wellbeing</button>
+                <button type="button" class="category-button" onclick="selectCategory('Feeding and Nutrition')"><i class="fas fa-baby-bottle"></i> Feeding & Nutrition</button>
+                <button type="button" class="category-button" onclick="selectCategory('Development & Playing')"><i class="fas fa-child"></i> Development & Playing</button>
+                <button type="button" class="category-button" onclick="selectCategory('Sleep')"><i class="fas fa-bed"></i> Sleep</button>
+                <button type="button" class="category-button" onclick="selectCategory('Education')"><i class="fas fa-book"></i> Education</button>
+                <button type="button" class="category-button" onclick="selectCategory('Legal & Financial')"><i class="fas fa-briefcase"></i> Legal & Financial</button>
+                <button type="button" class="category-button" onclick="selectCategory('Travel')"><i class="fas fa-plane"></i> Travel</button>
+                <button type="button" class="category-button" onclick="selectCategory('Other')"><i class="fas fa-question"></i> Other</button>
+            </div>
+
+            <label for="name">Child's Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter child's name" required>
+
+            <label for="age">Child's Age (in weeks):</label>
+            <input type="number" id="age" name="age" placeholder="Enter child's age" required>
+            <div id="age-error" class="error-message"></div>  <!-- Added error message container -->
+
+            <label for="additional_notes">Any Additional Notes:</label>
+            <textarea id="additional_notes" name="additional_notes" placeholder="Enter any additional notes here..."></textarea>
+
+            <button type="button" id="submit-button" onclick="sendQuestion()">Submit</button>
+        </form>
+
+        <div id="response-container">
+            <h2><img src="https://img.icons8.com/emoji/48/000000/baby-emoji.png" alt="Baby Icon">Sproutly Says</h2>
+            <div id="response"></div>
+            <ul id="sources"></ul>
+        </div>
+
+        <button id="ask-another" style="display: none;" onclick="window.location.reload();">Ask Another Question?</button>
+    </div>
+
+    <script>
+        function sendQuestion() {
+            const button = document.getElementById('submit-button');
+            const askAnotherButton = document.getElementById('ask-another');
+            const responseContainer = document.getElementById('response-container');
+            const responseElement = document.getElementById('response');
+
+            // Validate inputs
+            if (!validateForm()) {
+                button.innerHTML = 'Submit';
+                button.disabled = false;
+                return;
+            }
+
+            // Show loading spinner and disable the button
+            button.innerHTML = '<div class="spinner"></div>';
+            button.disabled = true;
+
+            const question = document.getElementById('question').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const additional_notes = document.getElementById('additional_notes').value;
+            const category = document.querySelector('#category-buttons .selected')?.textContent || '';
+
+            const data = { question, name, age, category, additional_notes };
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let originalQuestion = `<p><em>Original question:</em> ${question}</p>`;
+                let formattedResponse = data.response
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')   // Bold
+                    .replace(/### (.*?)(\n|$)/g, '<h3>$1</h3>')         // Headings
+                    .replace(/- (.*?)(\n|$)/g, '<li>$1</li>')           // Bullet points
+                    .replace(/\n\n/g, '<br><br>');                      // Line breaks
+
+                responseElement.innerHTML = originalQuestion + `<div>${formattedResponse}</div>`;
+                responseContainer.style.display = 'block';
+                askAnotherButton.style.display = 'block';
+                button.innerHTML = 'Submit';
+                button.disabled = false;
+
+                responseContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            })
+            .catch(error => {
+                responseElement.innerHTML = `Failed to get response: ${error.message}`;
+                button.innerHTML = 'Submit';
+                button.disabled = false;
+            });
+        }
+
+        // Validation function to check inputs before form submission
+        function validateForm() {
+            const age = document.getElementById('age').value;
+            const ageError = document.getElementById('age-error');
+
+            if (age <= 0) {
+                ageError.innerHTML = 'Please enter a valid age.';
+                return false;
+            } else {
+                ageError.innerHTML = '';  // Clear error if validation passes
+                return true;
+            }
+        }
+
+        // Event listeners for category buttons
+        document.querySelectorAll('#category-buttons .category-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('#category-buttons .category-button').forEach(b => b.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
