@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌱 Sproutly - Personalized Parenting Advice</title>
+    
     <style>
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 img {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
         /* Preload custom fonts */
         @font-face {
             font-family: 'Merriweather';
@@ -24,7 +38,7 @@
         /* Global Styling */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #EAF4F4;
+            background-color: #f0f0f0;  /* Light grey background */
             margin: 0;
             padding: 0;
             display: flex;
@@ -35,14 +49,15 @@
         }
 
         .container {
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 50px;  /* Increased from 40px */
+            background-color: #ffffff;  /* White background for the card */
+            border-radius: 20px;  /* Rounded corners */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+            padding: 50px;
             max-width: 95%;
             width: 100%;
             text-align: center;
             transition: all 0.3s ease;
+            margin: 20px; /* Space around the card */
         }
 
         /* Headings and Titles */
@@ -73,10 +88,10 @@
 
         /* Paragraphs and Text */
         p, ul, ul li {
-            font-size: 20px;  /* Increased from 18px */
+            font-size: 18px;
             color: #666;
             margin-bottom: 20px;
-            line-height: 1.8;
+            line-height: 1.5;
             text-align: left;
         }
 
@@ -96,7 +111,7 @@
             font-weight: bold;
             color: #333;
             text-align: left;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         input[type="text"], input[type="number"], textarea, select {
@@ -119,7 +134,15 @@
             height: 150px;
             resize: vertical;
         }
-
+       
+        /* Universal placeholder styling for all input and textarea fields */
+        input::placeholder, 
+        textarea::placeholder {
+            font-family: 'Roboto', sans-serif; /* Use current font for inputs */
+            font-size: 18px;  /* Keep current font size */
+            color: #bbb;  /* Keep current color */
+        }
+       
         /* Buttons */
         button, .category-button {
             padding: 16px 30px;
@@ -139,9 +162,9 @@
         }
 
         .category-button.selected {
-            background-color: #0A2740;  /* Stronger background color */
+            background-color: #0A2740;
             color: white;
-            border: 2px solid #123C69;  /* Added border */
+            border: 2px solid #123C69;
         }
 
         #submit-button {
@@ -161,8 +184,8 @@
         /* Spinner */
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #123C69;  /* Updated spinner color */
-            height: 40px;  /* Increased size */
+            border-top: 4px solid #123C69;
+            height: 40px;
             width: 40px;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -262,7 +285,7 @@
         /* Mobile-first adjustments */
         @media (max-width: 768px) {
             input[type="text"], textarea {
-                padding: 10px;  /* Reduced padding for mobile */
+                padding: 10px;
             }
 
             #submit-button {
@@ -270,7 +293,7 @@
                 bottom: 10px;
                 left: 50%;
                 transform: translateX(-50%);
-                z-index: 1000;  /* Ensure button stays visible */
+                z-index: 1000;
             }
         }
     </style>
@@ -279,22 +302,19 @@
     <div class="container">
         <h1><img src="https://img.icons8.com/emoji/48/000000/seedling.png" alt="Seedling Icon">Sproutly</h1>
         <p>
-            Sproutly is your friendly, go-to tool for answering parenting questions with personalised advice. We know there are countless websites and forums, which can make it overwhelming to find the right answers quickly. That’s where Sproutly comes in! It’s trained on trusted parenting and health sources to give you clear, reliable advice - fast.
-
-            Whether you're a new or seasoned parent, Sproutly is here to help. You can ask any parenting question, and the more details you provide, the more personalised and helpful the advice will be. 
+            Sproutly can answer any parenting question you may have. It has been trained on a range of online sources to give you clear, reliable advice - fast.
+        <p>
+            There are countless websites and forums out there, which can make it hard to find the answers to specific questions. 
+        <p>    
+            Try asking Sproutly for help and the more details you provide, the more personalised and helpful the advice will be. 
         </p>
-        <ul>
-            <li>Why won’t my baby sleep through the night?</li>
-            <li>How can I start introducing solid foods to my baby?</li>
-            <li>How do I claim child benefits in the UK?</li>
-            <li>How to travel safely with a 3 month old?</li>
-        </ul>
-
         <form id="questionForm">
             <label for="question">Your Question:</label>
+            <p><i>Enter any question below. This can be anything from why your baby isn't sleeping to advice on child benefits.</i></p>
             <input type="text" id="question" name="question" placeholder="Enter your question" required>
-
+            
             <label for="category">Category:</label>
+            <p><i>Choose the category that best fits your question. This will help Sproutly refine its search and provide you with the most relevant information.</i></p>
             <div id="category-buttons">
                 <button type="button" class="category-button" onclick="selectCategory('Health & Wellbeing')"><i class="fas fa-heartbeat"></i> Health & Wellbeing</button>
                 <button type="button" class="category-button" onclick="selectCategory('Feeding and Nutrition')"><i class="fas fa-baby-bottle"></i> Feeding & Nutrition</button>
@@ -307,14 +327,17 @@
             </div>
 
             <label for="name">Child's Name:</label>
+            <p><i>This is just for fun and is not required!</i></p>
             <input type="text" id="name" name="name" placeholder="Enter child's name" required>
 
             <label for="age">Child's Age (in weeks):</label>
+            <p><i>This will help Sproutly further refine its search, and provide age-appropriate advice.</i></p>
             <input type="number" id="age" name="age" placeholder="Enter child's age" required>
-            <div id="age-error" class="error-message"></div>  <!-- Added error message container -->
+            <div id="age-error" class="error-message"></div>
 
             <label for="additional_notes">Any Additional Notes:</label>
-            <textarea id="additional_notes" name="additional_notes" placeholder="Enter any additional notes here..."></textarea>
+            
+            <textarea id="additional_notes" name="additional_notes" placeholder="The more additional details you provide, the more bespoke Sproutly's advice will be. If you just want a general answer, you can leave it blank."></textarea>
 
             <button type="button" id="submit-button" onclick="sendQuestion()">Submit</button>
         </form>
