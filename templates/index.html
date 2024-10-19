@@ -21,7 +21,7 @@
 
         /* Preload custom fonts */
         @font-face {
-            font-family: 'Merriweather';
+            font-family: 'Roboto';
             font-style: normal;
             font-weight: 400;
             src: url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
@@ -62,7 +62,7 @@
 
         /* Headings and Titles */
         h1 {
-            font-family: 'Merriweather', serif;
+            font-family: 'Roboto', serif;
             font-size: 36px;
             margin-bottom: 20px;
             color: #123C69;
@@ -79,7 +79,7 @@
         }
 
         h2 {
-            font-family: 'Merriweather', serif;
+            font-family: 'Roboto', serif;
             font-size: 28px;
             color: #123C69;
             font-weight: bold;
@@ -289,11 +289,9 @@
             }
 
             #submit-button {
-                position: fixed;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1000;
+                position: static; /* Removes floating */
+                width: 100%; /* Ensures it spans the width of the form */
+                margin-top: 20px; /* Adds space above the button */
             }
         }
     </style>
