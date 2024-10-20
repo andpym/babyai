@@ -24,14 +24,14 @@
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 400;
-            src: url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+            src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
             font-display: swap;
         }
         @font-face {
             font-family: 'Roboto';
             font-style: normal;
-            font-weight: 400;
-            src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+            font-weight: 500;
+            src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
             font-display: swap;
         }
 
@@ -47,6 +47,7 @@
             min-height: 100vh;
             color: #333;
         }
+
 
         .container {
             background-color: #ffffff;  /* White background for the card */
@@ -145,27 +146,29 @@
        
         /* Buttons */
         button, .category-button {
-            padding: 16px 30px;
-            background-color: #e0e0e0;
-            color: #333;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            cursor: pointer;
-            margin: 5px;
-            transition: background-color 0.3s ease;
+            padding: 10px 10px;  /* Adequate padding for clickability */
+            background-color: #f2f2f2;  /* Lighter grey for a softer initial look */
+            color: #333;  /* Sufficient contrast for readability */
+            border: 1px solid #ccc;  /* Subtle border for definition */
+            border-radius: 12px;  /* Rounded corners for a modern look */
+            font-size: 15px;  /* Optimal font size for readability */
+            cursor: pointer;  /* Cursor feedback */
+            margin: 3px;  /* Spacing around buttons */
+            transition: background-color 0.3s ease, border-color 0.3s ease;  /* Smooth transition for visual feedback */
         }
 
         button:hover, .category-button:hover {
-            background-color: #C9E4E9;
-            color: white;
+            background-color: #e6e6e6;  /* Slightly lighter on hover for interactive feedback */
+            color: white;  /* White text for contrast */
+            border-color: #bbb;  /* Darker border on hover for emphasis */
         }
 
         .category-button.selected {
-            background-color: #0A2740;
-            color: white;
-            border: 2px solid #123C69;
+            background-color: #4a90e2;  /* Blue to signify active selection */
+            color: white;  /* White text for clarity */
+            border: 1px solid #3178c6;  /* Blue border to match the background */
         }
+
 
         #submit-button {
             background-color: #28a745;
@@ -307,37 +310,37 @@
             Try asking Sproutly for help and the more details you provide, the more personalised and helpful the advice will be. 
         </p>
         <form id="questionForm">
-            <label for="question">Your Question:</label>
+            <label for="question">❓Your Question:</label>
             <p><i>Enter any question below. This can be anything from why your baby isn't sleeping to advice on child benefits.</i></p>
             <input type="text" id="question" name="question" placeholder="Enter your question" required>
             
-            <label for="category">Category:</label>
+            <label for="category">📚 Category:</label>
             <p><i>Choose the category that best fits your question. This will help Sproutly refine its search and provide you with the most relevant information.</i></p>
             <div id="category-buttons">
-                <button type="button" class="category-button" onclick="selectCategory('Health & Wellbeing')"><i class="fas fa-heartbeat"></i> Health & Wellbeing</button>
-                <button type="button" class="category-button" onclick="selectCategory('Feeding and Nutrition')"><i class="fas fa-baby-bottle"></i> Feeding & Nutrition</button>
-                <button type="button" class="category-button" onclick="selectCategory('Development & Playing')"><i class="fas fa-child"></i> Development & Playing</button>
-                <button type="button" class="category-button" onclick="selectCategory('Sleep')"><i class="fas fa-bed"></i> Sleep</button>
-                <button type="button" class="category-button" onclick="selectCategory('Education')"><i class="fas fa-book"></i> Education</button>
-                <button type="button" class="category-button" onclick="selectCategory('Legal & Financial')"><i class="fas fa-briefcase"></i> Legal & Financial</button>
-                <button type="button" class="category-button" onclick="selectCategory('Travel')"><i class="fas fa-plane"></i> Travel</button>
-                <button type="button" class="category-button" onclick="selectCategory('Other')"><i class="fas fa-question"></i> Other</button>
+                <button type="button" class="category-button" onclick="selectCategory('Health & Wellbeing')"><i class="fas fa-heartbeat"></i>🩺 Health & Wellbeing</button>
+                <button type="button" class="category-button" onclick="selectCategory('Feeding and Nutrition')"><i class="fas fa-baby-bottle"></i>🍼 Feeding & Nutrition</button>
+                <button type="button" class="category-button" onclick="selectCategory('Development & Playing')"><i class="fas fa-child"></i>⚽️ Development & Playing</button>
+                <button type="button" class="category-button" onclick="selectCategory('Sleep')"><i class="fas fa-bed"></i>😴 Sleep</button>
+                <button type="button" class="category-button" onclick="selectCategory('Education')"><i class="fas fa-book"></i>🎓 Education</button>
+                <button type="button" class="category-button" onclick="selectCategory('Legal & Financial')"><i class="fas fa-briefcase"></i>💸 Legal & Financial</button>
+                <button type="button" class="category-button" onclick="selectCategory('Travel')"><i class="fas fa-plane"></i>✈️ Travel</button>
+                <button type="button" class="category-button" onclick="selectCategory('Other')"><i class="fas fa-question"></i>👀 Other</button>
             </div>
 
-            <label for="name">Child's Name:</label>
+            <label for="name">👼 Child's Name:</label>
             <p><i>This is just for fun and is not required!</i></p>
             <input type="text" id="name" name="name" placeholder="Enter child's name" required>
 
-            <label for="age">Child's Age (in weeks):</label>
+            <label for="age">🔢 Child's Age (in weeks):</label>
             <p><i>This will help Sproutly further refine its search, and provide age-appropriate advice.</i></p>
             <input type="number" id="age" name="age" placeholder="Enter child's age" required>
             <div id="age-error" class="error-message"></div>
 
-            <label for="additional_notes">Any Additional Notes:</label>
+            <label for="additional_notes">📝 Any Additional Notes:</label>
             
             <textarea id="additional_notes" name="additional_notes" placeholder="The more additional details you provide, the more bespoke Sproutly's advice will be. If you just want a general answer, you can leave it blank."></textarea>
 
-            <button type="button" id="submit-button" onclick="sendQuestion()">Submit</button>
+            <button type="button" id="submit-button" onclick="sendQuestion()">📲 Submit</button>
         </form>
 
         <div id="response-container">
